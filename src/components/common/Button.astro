@@ -1,0 +1,54 @@
+---
+// Button.astro
+// Componente de botón reutilizable con soporte para variantes y tamaños
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  id?: string;
+  class?: string;
+  disabled?: boolean;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  type = 'button',
+  id,
+  class: extraClass = '',
+  disabled = false,
+} = Astro.props;
+
+// Clases base compartidas por todos los botones
+const base = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0a0a0a] select-none whitespace-nowrap';
+
+// Variantes de estilo
+const variants: Record<string, string> = {
+  primary:   'bg-indigo-600 text-white hover:bg-indigo-500 active:bg-indigo-700 focus:ring-indigo-500 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30',
+  secondary: 'bg-white/5 text-white hover:bg-white/10 active:bg-white/[0.03] border border-white/10 hover:border-white/20 focus:ring-white/20',
+  outline:   'bg-transparent text-indigo-400 border border-indigo-500/50 hover:border-indigo-400 hover:bg-indigo-500/10 focus:ring-indigo-500',
+};
+
+// Tamaños disponibles
+const sizes: Record<string, string> = {
+  sm:  'text-xs px-3 py-1.5 gap-1.5',
+  md:  'text-sm px-4 py-2 gap-2',
+  lg:  'text-base px-6 py-3 gap-2.5',
+};
+
+// Clases para estado deshabilitado
+const disabledClass = disabled ? 'opacity-40 cursor-not-allowed pointer-events-none' : '';
+
+// Clase final compuesta
+const className = [base, variants[variant], sizes[size], disabledClass, extraClass].join(' ');
+---
+
+<button
+  type={type}
+  id={id}
+  class={className}
+  disabled={disabled}
+>
+  <slot />
+</button>

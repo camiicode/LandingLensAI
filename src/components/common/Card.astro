@@ -1,0 +1,51 @@
+---
+// Card.astro
+// Tarjeta reutilizable con efecto glassmorphism para secciones de contenido
+
+interface Props {
+  title?: string;
+  icon?: string;       // SVG inline como string
+  class?: string;
+  noPadding?: boolean;
+}
+
+const {
+  title,
+  icon,
+  class: extraClass = '',
+  noPadding = false,
+} = Astro.props;
+
+// Clases base de la tarjeta
+const cardClass = [
+  'relative rounded-xl border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm',
+  'hover:border-white/[0.12] hover:bg-white/[0.05]',
+  'transition-all duration-300',
+  noPadding ? '' : 'p-6',
+  extraClass,
+].join(' ');
+---
+
+<div class={cardClass}>
+  {/* Gradiente de brillo en la esquina superior */}
+  <div
+    class="pointer-events-none absolute inset-0 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300"
+    style="background: radial-gradient(350px at 50% 0%, rgba(79,70,229,0.06), transparent 70%)"
+    aria-hidden="true"
+  ></div>
+
+  {/* Ícono opcional */}
+  {icon && (
+    <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-indigo-500/20 bg-indigo-500/10">
+      <Fragment set:html={icon} />
+    </div>
+  )}
+
+  {/* Título opcional */}
+  {title && (
+    <h3 class="mb-2 text-base font-semibold text-white">{title}</h3>
+  )}
+
+  {/* Contenido de la tarjeta */}
+  <slot />
+</div>

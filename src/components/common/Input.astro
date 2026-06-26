@@ -1,0 +1,56 @@
+---
+// Input.astro
+// Campo de texto reutilizable con estilos consistentes al diseño oscuro
+
+interface Props {
+  type?: 'text' | 'url' | 'email' | 'password' | 'search';
+  placeholder?: string;
+  value?: string;
+  id?: string;
+  name?: string;
+  required?: boolean;
+  autocomplete?: string;
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  type = 'text',
+  placeholder = '',
+  value = '',
+  id,
+  name,
+  required = false,
+  autocomplete,
+  class: extraClass = '',
+  size = 'md',
+} = Astro.props;
+
+// Tamaños disponibles
+const sizes: Record<string, string> = {
+  sm:  'text-sm px-3 py-2',
+  md:  'text-sm px-4 py-2.5',
+  lg:  'text-base px-5 py-3.5',
+};
+
+// Clase final del input
+const inputClass = [
+  'w-full rounded-lg border border-white/[0.08] bg-white/[0.04] text-white placeholder-white/30',
+  'transition-all duration-200',
+  'focus:outline-none focus:border-indigo-500/70 focus:bg-white/[0.06] focus:ring-1 focus:ring-indigo-500/50',
+  'hover:border-white/[0.14] hover:bg-white/[0.05]',
+  sizes[size],
+  extraClass,
+].join(' ');
+---
+
+<input
+  type={type}
+  id={id}
+  name={name}
+  placeholder={placeholder}
+  value={value}
+  required={required}
+  autocomplete={autocomplete}
+  class={inputClass}
+/>
