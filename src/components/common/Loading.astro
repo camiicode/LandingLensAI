@@ -4,7 +4,7 @@ export interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-const { text = 'Cargando...', size = 'md' } = Astro.props;
+const { text = 'Loading...', size = 'md' } = Astro.props;
 
 const sizeClasses = {
   sm: 'w-5 h-5 border-2',

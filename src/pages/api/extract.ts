@@ -23,7 +23,7 @@ export const POST: APIRoute = async ({ request }) => {
     let { url } = body;
 
     if (!url || typeof url !== 'string') {
-      return json({ success: false, error: 'URL inválida o no proporcionada' }, 400);
+      return json({ success: false, error: 'Invalid or missing URL' }, 400);
     }
 
     url = url.trim();
@@ -35,7 +35,7 @@ export const POST: APIRoute = async ({ request }) => {
     try {
       new URL(url);
     } catch {
-      return json({ success: false, error: 'Formato de URL inválido' }, 400);
+      return json({ success: false, error: 'Invalid URL format' }, 400);
     }
 
     const data = await extractContent(url);
@@ -43,11 +43,11 @@ export const POST: APIRoute = async ({ request }) => {
 
     return json({ success: true, data, score });
   } catch (error) {
-    console.error('Error en /api/extract:', error);
+    console.error('Error in /api/extract:', error);
     return json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Error interno del servidor',
+        error: error instanceof Error ? error.message : 'Internal server error',
       },
       500
     );

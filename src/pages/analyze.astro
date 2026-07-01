@@ -5,9 +5,9 @@ import Loading from '../components/common/Loading.astro';
 const urlParam = Astro.url.searchParams.get('url');
 ---
 
-<BaseLayout title="Resultados del analisis - LPO">
+<BaseLayout title="Analysis Results - LPO">
   <div id="analysis-root" class="max-w-6xl mx-auto px-4 py-8 min-h-screen">
-    <Loading text="Preparando resultados..." size="lg" />
+    <Loading text="Preparing results..." size="lg" />
   </div>
 
   <script>
@@ -61,65 +61,65 @@ const urlParam = Astro.url.searchParams.get('url');
       if (!root) return;
 
       const label =
-        score.overall >= 70 ? 'Buena' :
-        score.overall >= 50 ? 'Mejorable' : 'Critica';
+        score.overall >= 70 ? 'Good' :
+        score.overall >= 50 ? 'Needs improvement' : 'Critical';
 
       const sectionConfigs = [
-        { key: 'hero', title: 'Hero / Propuesta de valor', score: score.sections.hero },
-        { key: 'ctas', title: 'Llamadas a la accion (CTAs)', score: score.sections.ctas },
-        { key: 'forms', title: 'Formularios', score: score.sections.forms },
+        { key: 'hero', title: 'Hero / Value proposition', score: score.sections.hero },
+        { key: 'ctas', title: 'Calls to action (CTAs)', score: score.sections.ctas },
+        { key: 'forms', title: 'Forms', score: score.sections.forms },
         { key: 'seo', title: 'SEO', score: score.sections.seo },
-        { key: 'accessibility', title: 'Accesibilidad', score: score.sections.accessibility },
-        { key: 'socialProof', title: 'Prueba social', score: score.sections.socialProof },
+        { key: 'accessibility', title: 'Accessibility', score: score.sections.accessibility },
+        { key: 'socialProof', title: 'Social proof', score: score.sections.socialProof },
       ];
 
       const sectionCards = sectionConfigs.map(cfg => {
         const detail = score.sectionMessages[cfg.key];
-        return sectionCard(cfg.title, cfg.score, detail?.message || 'No evaluado');
+        return sectionCard(cfg.title, cfg.score, detail?.message || 'Not evaluated');
       }).join('');
 
       const headingsHtml = data.headings.length
         ? data.headings.map((h: any) => `<span class="inline-block bg-white/5 px-2 py-0.5 rounded text-xs">${'#'.repeat(h.level)} ${h.text}</span>`).join(' ')
-        : 'Ninguno';
+        : 'None';
 
       root.innerHTML = `
         <a href="${basePath}/" class="text-indigo-400 hover:text-indigo-300 transition text-sm inline-block mb-6">
-          &larr; Volver al inicio
+          &larr; Back to home
         </a>
 
-        <h1 class="text-3xl font-bold text-white mb-2">Resultados del analisis</h1>
+        <h1 class="text-3xl font-bold text-white mb-2">Analysis Results</h1>
         <p class="text-gray-400 text-sm mb-8 break-all">${data.url} &bull; ${new Date(data.timestamp).toLocaleString()}</p>
 
         <div class="flex flex-col md:flex-row items-center gap-8 bg-white/5 border border-white/10 rounded-2xl p-8 mb-8">
           ${gaugeSvg(score.overall)}
           <div class="flex-1 text-center md:text-left">
-            <h2 class="text-xl font-semibold text-white mb-2">Resumen</h2>
-            <p class="text-gray-300">${data.title || 'Sin titulo'}</p>
+            <h2 class="text-xl font-semibold text-white mb-2">Summary</h2>
+            <p class="text-gray-300">${data.title || 'No title'}</p>
             <p class="text-gray-400 text-sm mt-2">
-              ${data.ctas.length} CTAs &bull; ${data.forms.length} formularios &bull; ${data.images.length} imagenes &bull; ${data.headings.length} headings
+              ${data.ctas.length} CTAs &bull; ${data.forms.length} forms &bull; ${data.images.length} images &bull; ${data.headings.length} headings
             </p>
             <div class="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
               <span class="text-xs ${scoreBg(score.overall)} px-3 py-1 rounded-full font-medium">${label}</span>
-              <span class="text-xs bg-white/5 text-gray-400 px-3 py-1 rounded-full">${score.overall}/100 general</span>
+              <span class="text-xs bg-white/5 text-gray-400 px-3 py-1 rounded-full">${score.overall}/100 overall</span>
             </div>
           </div>
         </div>
 
-        <h2 class="text-xl font-semibold text-white mb-4">Analisis por seccion</h2>
+        <h2 class="text-xl font-semibold text-white mb-4">Analysis by section</h2>
         <div class="grid md:grid-cols-2 gap-4 mb-8">
           ${sectionCards}
         </div>
 
-        <h2 class="text-xl font-semibold text-white mb-4">Detalles extraidos</h2>
+        <h2 class="text-xl font-semibold text-white mb-4">Extracted details</h2>
         <div class="bg-white/5 border border-white/10 rounded-xl p-5 text-sm text-gray-300 space-y-3">
-          <div><strong class="text-white">Titulo:</strong> ${data.title || 'No disponible'}</div>
-          <div><strong class="text-white">Descripcion:</strong> ${data.description || 'No disponible'}</div>
-          <div><strong class="text-white">Idioma:</strong> ${data.language || 'No detectado'}</div>
+          <div><strong class="text-white">Title:</strong> ${data.title || 'Not available'}</div>
+          <div><strong class="text-white">Description:</strong> ${data.description || 'Not available'}</div>
+          <div><strong class="text-white">Language:</strong> ${data.language || 'Not detected'}</div>
           <div><strong class="text-white">Headings:</strong> <span class="flex flex-wrap gap-1 mt-1">${headingsHtml}</span></div>
-          <div><strong class="text-white">CTAs detectados:</strong> ${data.ctas.length ? data.ctas.map((c: any) => '"' + c.text + '"').join(', ') : 'Ninguno'}</div>
+          <div><strong class="text-white">CTAs detected:</strong> ${data.ctas.length ? data.ctas.map((c: any) => '"' + c.text + '"').join(', ') : 'None'}</div>
           ${data.meta?.ogTitle ? `<div><strong class="text-white">OG Title:</strong> ${data.meta.ogTitle}</div>` : ''}
           ${data.meta?.favicon ? `<div><strong class="text-white">Favicon:</strong> ${data.meta.favicon}</div>` : ''}
-          ${data.screenshot ? `<div class="mt-4"><strong class="text-white">Vista previa:</strong>
+          ${data.screenshot ? `<div class="mt-4"><strong class="text-white">Preview:</strong>
             <img src="data:image/png;base64,${data.screenshot}" alt="Screenshot" class="mt-2 rounded-lg border border-white/10 max-w-full w-[400px]" />
           </div>` : ''}
         </div>
@@ -145,7 +145,7 @@ const urlParam = Astro.url.searchParams.get('url');
 
       if (urlParam) {
         const root = document.getElementById('analysis-root');
-        if (root) root.innerHTML = '<div class="flex flex-col items-center justify-center gap-4 mt-20"><div class="w-12 h-12 rounded-full border-4 border-t-transparent border-indigo-500 animate-spin"></div><p class="text-gray-400">Recuperando datos...</p></div>';
+        if (root) root.innerHTML = '<div class="flex flex-col items-center justify-center gap-4 mt-20"><div class="w-12 h-12 rounded-full border-4 border-t-transparent border-indigo-500 animate-spin"></div><p class="text-gray-400">Fetching data...</p></div>';
 
         try {
           const res = await fetch(`${RENDER_API}/api/extract`, {
@@ -163,9 +163,9 @@ const urlParam = Astro.url.searchParams.get('url');
           if (root) {
             root.innerHTML = `
               <div class="flex flex-col items-center justify-center gap-4 mt-20 text-center">
-                <p class="text-red-400 text-lg">Error al recuperar los datos</p>
-                <p class="text-gray-400 text-sm">${err.message || 'Error desconocido'}</p>
-                <a href="${basePath}/" class="mt-4 text-indigo-400 hover:text-indigo-300 transition">Volver al inicio</a>
+                <p class="text-red-400 text-lg">Error fetching data</p>
+                <p class="text-gray-400 text-sm">${err.message || 'Unknown error'}</p>
+                <a href="${basePath}/" class="mt-4 text-indigo-400 hover:text-indigo-300 transition">Back to home</a>
               </div>`;
           }
         }

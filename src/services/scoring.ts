@@ -25,50 +25,50 @@ export function calculateScore(data: ExtractedData): ScoreResult {
   const titleScore = data.title.length >= 20 && data.title.length <= 70 ? 100 :
                      data.title.length > 0 ? 50 : 0;
   const titleMessage = data.title.length >= 20 && data.title.length <= 70
-    ? 'Longitud optima (20-70 caracteres)'
+    ? 'Optimal length (20-70 characters)'
     : data.title.length > 0
-      ? 'Ajusta la longitud del titulo'
-      : 'Falta titulo';
+      ? 'Adjust the title length'
+      : 'Missing title';
 
   const descScore = data.description.length >= 50 && data.description.length <= 160 ? 100 :
-                    data.description.length > 0 ? 50 : 0;
+                     data.description.length > 0 ? 50 : 0;
   const descMessage = data.description.length >= 50 && data.description.length <= 160
-    ? 'Descripcion optima (50-160 caracteres)'
+    ? 'Optimal length (50-160 characters)'
     : data.description.length > 0
-      ? 'Ajusta la longitud de la descripcion'
-      : 'Falta meta descripcion';
+      ? 'Adjust the description length'
+      : 'Missing meta description';
 
   const headingScore = data.headings.length >= 2 ? 100 :
                        data.headings.length === 1 ? 50 : 0;
   const headingMessage = data.headings.length >= 2
-    ? 'Buen uso de headings'
+    ? 'Good use of headings'
     : data.headings.length === 1
-      ? 'Agrega mas headings (H1, H2, H3)'
-      : 'No hay headings';
+      ? 'Add more headings (H1, H2, H3)'
+      : 'No headings found';
 
   const ctaCount = data.ctas.length;
   const ctaScore = ctaCount >= 2 ? 100 :
                    ctaCount === 1 ? 60 : 0;
   const ctaMessage = ctaCount >= 2
-    ? 'Multiples CTAs detectados'
+    ? 'Multiple CTAs detected'
     : ctaCount === 1
-      ? 'Solo un CTA, considera agregar mas'
-      : 'No se detectaron CTAs';
+      ? 'Only one CTA, consider adding more'
+      : 'No CTAs detected';
 
   const formCount = data.forms.length;
   const formScore = formCount >= 1 ? 100 : 0;
   const formMessage = formCount >= 1
-    ? 'Formulario detectado'
-    : 'No hay formulario de captura';
+    ? 'Form detected'
+    : 'No capture form found';
 
   const imgCount = data.images.length;
   const imgScore = imgCount >= 3 ? 100 :
                    imgCount >= 1 ? 60 : 0;
   const imgMessage = imgCount >= 3
-    ? 'Buen numero de imagenes'
+    ? 'Good number of images'
     : imgCount >= 1
-      ? 'Agrega mas imagenes visuales'
-      : 'No hay imagenes';
+      ? 'Add more visual images'
+      : 'No images found';
 
   const sections = {
     hero: Math.round((titleScore + headingScore) / 2),
@@ -87,38 +87,38 @@ export function calculateScore(data: ExtractedData): ScoreResult {
     hero: {
       score: sections.hero,
       message: data.title
-        ? (sections.hero >= 70 ? 'Buena propuesta de valor' : 'Mejorable, optimiza el titulo')
-        : 'Falta titulo principal',
+        ? (sections.hero >= 70 ? 'Good value proposition' : 'Could be improved, optimize the title')
+        : 'Missing main title',
     },
     ctas: {
       score: sections.ctas,
       message: data.ctas.length > 0
-        ? (sections.ctas >= 70 ? 'CTAs efectivos y suficientes' : 'Hay CTAs pero se pueden mejorar')
-        : 'No se detectaron CTAs',
+        ? (sections.ctas >= 70 ? 'Effective and sufficient CTAs' : 'CTAs present but could be improved')
+        : 'No CTAs detected',
     },
     forms: {
       score: sections.forms,
       message: data.forms.length > 0
-        ? 'Formulario de captura detectado'
-        : 'No hay formulario de captura',
+        ? 'Capture form detected'
+        : 'No capture form found',
     },
     seo: {
       score: sections.seo,
       message: data.title && data.description
-        ? (sections.seo >= 70 ? 'Buen SEO on-page' : 'Mejora los metadatos SEO')
-        : 'Faltan metadatos SEO (title y description)',
+        ? (sections.seo >= 70 ? 'Good on-page SEO' : 'Improve SEO metadata')
+        : 'Missing SEO metadata (title and description)',
     },
     accessibility: {
       score: sections.accessibility,
       message: data.headings.length > 0
-        ? (sections.accessibility >= 70 ? 'Buena estructura de accesibilidad' : 'Estructura de headings mejorable')
-        : 'Falta estructura de headings',
+        ? (sections.accessibility >= 70 ? 'Good accessibility structure' : 'Heading structure could be improved')
+        : 'Missing heading structure',
     },
     socialProof: {
       score: sections.socialProof,
       message: data.images.length >= 2 || data.links.length > 5
-        ? 'Senales de confianza detectadas'
-        : 'Agrega mas pruebas sociales (imagenes, testimonios)',
+        ? 'Trust signals detected'
+        : 'Add more social proof (images, testimonials)',
     },
   };
 

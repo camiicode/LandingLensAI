@@ -1,7 +1,7 @@
 ---
 // index.astro
-// Página de inicio de LandingLens AI
-// Importamos los componentes necesarios
+// LandingLens AI home page
+// Import required components
 
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Button from '../components/common/Button.astro';
@@ -40,44 +40,44 @@ const steps = [
   {
     number: '01',
     icon: iconLink,
-    title: 'Pega tu URL',
-    description: 'Introduce la dirección de tu landing page. Soportamos cualquier dominio público.',
+    title: 'Paste your URL',
+    description: 'Enter your landing page URL. We support any public domain.',
   },
   {
     number: '02',
     icon: iconBrain,
-    title: 'La IA analiza',
-    description: 'Nuestro motor extrae y evalúa el contenido, estructura y rendimiento de tu página.',
+    title: 'AI analyzes',
+    description: 'Our engine extracts and evaluates your page content, structure, and performance.',
   },
   {
     number: '03',
     icon: iconList,
-    title: 'Recibe recomendaciones',
-    description: 'Obtén un informe con acciones concretas ordenadas por impacto en conversión.',
+    title: 'Get recommendations',
+    description: 'Receive a report with actionable steps ranked by conversion impact.',
   },
 ];
 
-// ── Secciones que se analizan ─────────────────────────────────────────────────
+// ── Sections we analyze ─────────────────────────────────────────────────
 const features = [
   {
     icon: iconHero,
     title: 'Hero section',
-    description: 'Evalúa si tu propuesta de valor es clara, el mensaje resuena y la primera impresión convierte.',
+    description: 'Evaluates whether your value proposition is clear, the message resonates, and the first impression converts.',
   },
   {
     icon: iconCta,
-    title: 'Llamadas a la acción',
-    description: 'Analiza el texto, posición y contraste de cada CTA para maximizar el click-through.',
+    title: 'Calls to action',
+    description: 'Analyzes the text, position, and contrast of each CTA to maximize click-through.',
   },
   {
     icon: iconForm,
-    title: 'Formularios',
-    description: 'Detecta fricciones en tus formularios: campos innecesarios, errores de usabilidad y más.',
+    title: 'Forms',
+    description: 'Detects friction in your forms: unnecessary fields, usability issues, and more.',
   },
   {
     icon: iconSeo,
-    title: 'SEO y accesibilidad',
-    description: 'Revisa metadatos, jerarquía de títulos, contraste de colores y compatibilidad con lectores de pantalla.',
+    title: 'SEO & accessibility',
+    description: 'Reviews metadata, heading hierarchy, color contrast, and screen reader compatibility.',
   },
 ];
 ---
@@ -90,7 +90,7 @@ const features = [
     <div class="mx-auto! flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
 
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group" aria-label="LPO — Inicio">
+      <a href="/" class="flex items-center gap-2 group" aria-label="LPO — Home">
         <!-- Icono del logo -->
         <div class="flex h-7 w-7 items-center justify-center rounded-md bg-indigo-600 transition-transform duration-200 group-hover:scale-105">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -105,13 +105,7 @@ const features = [
       </a>
 
       <!-- Navegación -->
-      <nav class="flex items-center gap-1" aria-label="Navegación principal">
-        <a
-          href="#"
-          class="rounded-md px-3! py-1.5 text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white/80"
-        >
-          Documentación
-        </a>
+      <nav class="flex items-center gap-1" aria-label="Main navigation">
         <a
           href="https://github.com/camiicode/LandingLensAI"
           class="flex items-center gap-1.5 rounded-md px-3! py-1.5! text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white/80"
@@ -153,7 +147,7 @@ const features = [
         <!-- Badge superior -->
         <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3.5 py-1.5 text-xs font-medium text-indigo-300">
           <span class="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-400"></span>
-          Ahora con análisis multi-modelo: GPT-4, Claude y Gemini
+          Now with multi-model analysis: GPT-4, Claude & Gemini
         </div>
 
         <!-- Título principal -->
@@ -161,18 +155,18 @@ const features = [
           id="hero-heading"
           class="mb-5 text-4xl font-semibold leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-6xl"
         >
-          Optimiza tus conversiones
+          Optimize your conversions
           <br />
           <span
             class="bg-linear-to-r from-indigo-400 via-violet-400 to-indigo-300 bg-clip-text text-transparent"
           >
-            con inteligencia artificial
+            with artificial intelligence
           </span>
         </h1>
 
-        <!-- Subtítulo -->
+        <!-- Subtitle -->
         <p class="mx-auto mb-10 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg">
-          Pega la URL de tu landing page y recibe en segundos un diagnóstico detallado con acciones concretas para aumentar tus ventas.
+          Paste your landing page URL and get a detailed diagnosis in seconds with concrete actions to increase your sales.
         </p>
 
         <!-- ── Formulario de URL ── -->
@@ -193,27 +187,27 @@ const features = [
             <input
               id="url-input"
               type="url"
-              placeholder="https://tu-landing.com"
+              placeholder="https://your-landing.com"
               autocomplete="url"
               class="flex-1 bg-transparent text-sm text-white placeholder-white/25 focus:outline-none"
-              aria-label="URL de la landing page a analizar"
+              aria-label="Landing page URL to analyze"
             />
 
-            <!-- Botón Analizar -->
+            <!-- Analyze Button -->
             <button
               id="analyze-btn"
               type="button"
               class="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-500 hover:shadow-indigo-500/30 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-transparent"
-              aria-label="Analizar landing page"
+              aria-label="Analyze landing page"
             >
-              Analizar
+              Analyze
               <Fragment set:html={iconArrow} />
             </button>
           </div>
 
-          <!-- Hint de ejemplo -->
+          <!-- Hint -->
           <p class="mt-3 text-xs text-white/30">
-            Ejemplo: <span class="font-mono text-white/40">https://midominio.com/landing</span>
+            Example: <span class="font-mono text-white/40">https://mydomain.com/landing</span>
           </p>
         </div>
 
@@ -221,21 +215,21 @@ const features = [
     </section>
 
     <!-- ══════════════════════════════════════════════════════════════
-         SECCIÓN: CÓMO FUNCIONA
+         SECTION: HOW IT WORKS
     ════════════════════════════════════════════════════════════════ -->
     <section class="py-20 sm:py-28" aria-labelledby="how-it-works-heading">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
 
-        <!-- Cabecera de sección -->
+        <!-- Section header -->
         <div class="mb-14 text-center">
           <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-400">
-            Proceso
+            Process
           </p>
           <h2
             id="how-it-works-heading"
             class="text-2xl font-semibold tracking-tight text-white sm:text-3xl"
           >
-            Tres pasos, resultados inmediatos
+            Three steps, fast results
           </h2>
         </div>
 
@@ -273,24 +267,24 @@ const features = [
     </section>
 
     <!-- ══════════════════════════════════════════════════════════════
-         SECCIÓN: QUÉ ANALIZAMOS
+         SECTION: WHAT WE ANALYZE
     ════════════════════════════════════════════════════════════════ -->
     <section class="py-20 sm:py-28" aria-labelledby="features-heading">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
 
-        <!-- Cabecera de sección -->
+        <!-- Section header -->
         <div class="mb-14 text-center">
           <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-indigo-400">
-            Cobertura
+            Coverage
           </p>
           <h2
             id="features-heading"
             class="text-2xl font-semibold tracking-tight text-white sm:text-3xl"
           >
-            Qué analizamos en tu página
+            What we analyze on your page
           </h2>
           <p class="mt-3 text-sm text-white/40">
-            Cubrimos los elementos que más impactan en la decisión de conversión del visitante.
+            We cover the elements that most impact your visitor's conversion decision.
           </p>
         </div>
 
@@ -307,22 +301,22 @@ const features = [
     </section>
 
     <!-- ══════════════════════════════════════════════════════════════
-         CTA FINAL
+         FINAL CTA
     ════════════════════════════════════════════════════════════════ -->
     <section class="py-20 sm:py-28">
       <div class="mx-auto max-w-2xl px-4 text-center sm:px-6">
         <div class="rounded-2xl border border-indigo-500/15 bg-indigo-500/6 p-10 sm:p-14">
           <h2 class="mb-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Empieza a optimizar ahora
+            Start optimizing now
           </h2>
           <p class="mb-8 text-sm leading-relaxed text-white/40">
-            Sin registro, sin tarjeta de crédito. Pega tu URL y obtén tu primer análisis gratis.
+            No sign up, no credit card. Paste your URL and get your first free analysis.
           </p>
           <button
             type="button"
             class="cta-scroll inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-500 hover:shadow-indigo-500/30 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-brand-bg"
           >
-            Analizar mi landing page
+            Analyze my landing page
             <Fragment set:html={iconArrow} />
           </button>
         </div>
@@ -341,10 +335,10 @@ const features = [
         <p class="text-xs text-white/25">
           © {new Date().getFullYear()} LPO — Landing Page Optimizer
         </p>
-        <!-- Links de pie -->
+        <!-- Footer links -->
         <div class="flex items-center gap-4">
-          <a href="#" class="text-xs text-white/25 transition-colors hover:text-white/50">Privacidad</a>
-          <a href="#" class="text-xs text-white/25 transition-colors hover:text-white/50">Términos</a>
+          <a href="#" class="text-xs text-white/25 transition-colors hover:text-white/50">Privacy</a>
+          <a href="#" class="text-xs text-white/25 transition-colors hover:text-white/50">Terms</a>
         </div>
       </div>
     </div>
@@ -353,7 +347,7 @@ const features = [
   <ErrorModal />
 
   <!-- ══════════════════════════════════════════════════════════════
-       TOAST DE VALIDACIÓN
+       VALIDATION TOAST
   ════════════════════════════════════════════════════════════════ -->
   <div
     id="toast"
@@ -373,7 +367,7 @@ const features = [
   </div>
 
   <!-- ══════════════════════════════════════════════════════════════
-       LÓGICA DEL CLIENTE (TypeScript)
+       CLIENT-SIDE LOGIC (TypeScript)
   ════════════════════════════════════════════════════════════════ -->
   <script>
     // ── Rutas ───────────────────────────────────────────────────
@@ -456,21 +450,21 @@ const features = [
       const url = urlInput.value.trim();
 
       if (!url) {
-        showToast('Introduce una URL para analizar.', 'error');
+        showToast('Enter a URL to analyze.', 'error');
         urlInput.focus();
         return;
       }
 
       if (!isValidUrl(url)) {
-        showToast('La URL no es válida. Incluye http:// o https://', 'error');
+        showToast('Invalid URL. Include http:// or https://', 'error');
         urlInput.focus();
         return;
       }
 
-      // ── Estado de carga ─────────────────────────────────────
+      // ── Loading state ─────────────────────────────────────
       analyzeBtn.disabled = true;
-      analyzeBtn.innerHTML = 'Analizando…';
-      showToast(`Analizando ${url}…`, 'success');
+      analyzeBtn.innerHTML = 'Analyzing\u2026';
+      showToast(`Analyzing ${url}\u2026`, 'success');
 
       try {
         const response = await fetch(`${RENDER_API}/api/extract`, {
@@ -482,7 +476,7 @@ const features = [
         const result = await response.json();
 
         if (!response.ok || !result.success) {
-          throw new Error(result.error || 'Error al analizar la página');
+          throw new Error(result.error || 'Failed to analyze the page');
         }
 
         sessionStorage.setItem('extractionResult', JSON.stringify({ data: result.data, score: result.score }));
@@ -492,7 +486,7 @@ const features = [
         if (/timeout/i.test(msg)) {
           (window as any).showErrorModal?.();
         } else {
-          showToast(`❌ Error: ${msg || 'Error desconocido'}`, 'error');
+          showToast(`❌ Error: ${msg || 'Unknown error'}`, 'error');
         }
       } finally {
         analyzeBtn.disabled = false;

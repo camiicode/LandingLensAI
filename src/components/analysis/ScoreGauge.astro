@@ -5,7 +5,7 @@ export interface Props {
   label?: string;
 }
 
-const { score, size = 'lg', label = 'Puntaje' } = Astro.props;
+const { score, size = 'lg', label = 'Score' } = Astro.props;
 const clampedScore = Math.min(100, Math.max(0, score));
 const circumference = 2 * Math.PI * 40;
 const offset = circumference - (clampedScore / 100) * circumference;

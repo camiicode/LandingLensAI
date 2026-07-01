@@ -223,7 +223,7 @@ export async function extractContent(url: string): Promise<ExtractedData> {
   } catch (error) {
     await browser.close();
     throw new Error(
-      `Error al extraer contenido de ${url}: ${error instanceof Error ? error.message : 'Error desconocido'}`
+      `Failed to extract content from ${url}: ${error instanceof Error ? error.message : 'Unknown error'}`
     );
   }
 }
