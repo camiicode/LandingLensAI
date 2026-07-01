@@ -20,7 +20,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install
-      - run: pnpm build
+      - run: pnpm run build:static
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
