@@ -169,46 +169,56 @@ const features = [
           Paste your landing page URL and get a detailed diagnosis in seconds with concrete actions to increase your sales.
         </p>
 
-        <!-- ── Formulario de URL ── -->
+        <!-- ── URL Form ── -->
         <div class="mx-auto max-w-xl">
-          <div
-            class="relative flex items-center gap-2 rounded-xl border border-white/9 bg-white/3 p-2 shadow-2xl shadow-black/50 backdrop-blur-sm transition-all duration-300 focus-within:border-indigo-500/50 focus-within:bg-white/5 focus-within:shadow-indigo-500/10"
-          >
-            <!-- Ícono de URL dentro del input -->
-            <div class="shrink-0 pl-2 text-white/30">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                <path d="M2 12h20"/>
-              </svg>
+
+          <!-- Active form -->
+          <div id="form-container">
+            <div
+              class="relative flex items-center gap-2 rounded-xl border border-white/9 bg-white/3 p-2 shadow-2xl shadow-black/50 backdrop-blur-sm transition-all duration-300 focus-within:border-indigo-500/50 focus-within:bg-white/5 focus-within:shadow-indigo-500/10"
+            >
+              <div class="shrink-0 pl-2 text-white/30">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                  <path d="M2 12h20"/>
+                </svg>
+              </div>
+
+              <input
+                id="url-input"
+                type="url"
+                placeholder="https://your-landing.com"
+                autocomplete="url"
+                class="flex-1 bg-transparent text-sm text-white placeholder-white/25 focus:outline-none"
+                aria-label="Landing page URL to analyze"
+              />
+
+              <button
+                id="analyze-btn"
+                type="button"
+                class="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-500 hover:shadow-indigo-500/30 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-transparent"
+                aria-label="Analyze landing page"
+              >
+                Analyze
+                <Fragment set:html={iconArrow} />
+              </button>
             </div>
 
-            <!-- Input de URL -->
-            <input
-              id="url-input"
-              type="url"
-              placeholder="https://your-landing.com"
-              autocomplete="url"
-              class="flex-1 bg-transparent text-sm text-white placeholder-white/25 focus:outline-none"
-              aria-label="Landing page URL to analyze"
-            />
-
-            <!-- Analyze Button -->
-            <button
-              id="analyze-btn"
-              type="button"
-              class="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-500 hover:shadow-indigo-500/30 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-transparent"
-              aria-label="Analyze landing page"
-            >
-              Analyze
-              <Fragment set:html={iconArrow} />
-            </button>
+            <p class="mt-3 text-xs text-white/30">
+              Example: <span class="font-mono text-white/40">https://mydomain.com/landing</span>
+            </p>
           </div>
 
-          <!-- Hint -->
-          <p class="mt-3 text-xs text-white/30">
-            Example: <span class="font-mono text-white/40">https://mydomain.com/landing</span>
-          </p>
+          <!-- Loading state -->
+          <div
+            id="loading-container"
+            class="hidden flex-col items-center gap-4 py-6"
+          >
+            <div class="h-10 w-10 rounded-full border-4 border-t-transparent border-indigo-500 animate-spin"></div>
+            <p id="loading-text" class="text-sm text-gray-400">Analyzing...</p>
+          </div>
+
         </div>
 
       </div>
@@ -375,13 +385,16 @@ const features = [
     const RENDER_API = 'https://lpo-backend.onrender.com';
 
     // ── Referencias al DOM ────────────────────────────────────────
-    const urlInput   = document.getElementById('url-input')    as HTMLInputElement;
-    const analyzeBtn = document.getElementById('analyze-btn')  as HTMLButtonElement;
-    const toast      = document.getElementById('toast')        as HTMLDivElement;
-    const toastInner = document.getElementById('toast-inner')  as HTMLDivElement;
-    const toastMsg   = document.getElementById('toast-message') as HTMLSpanElement;
-    const toastIcon  = document.getElementById('toast-icon')   as HTMLSpanElement;
-    const ctaBtn     = document.querySelector('.cta-scroll')   as HTMLButtonElement;
+    const urlInput        = document.getElementById('url-input')        as HTMLInputElement;
+    const analyzeBtn      = document.getElementById('analyze-btn')      as HTMLButtonElement;
+    const formContainer   = document.getElementById('form-container')   as HTMLDivElement;
+    const loadingContainer = document.getElementById('loading-container') as HTMLDivElement;
+    const loadingText     = document.getElementById('loading-text')     as HTMLParagraphElement;
+    const toast           = document.getElementById('toast')            as HTMLDivElement;
+    const toastInner      = document.getElementById('toast-inner')      as HTMLDivElement;
+    const toastMsg        = document.getElementById('toast-message')    as HTMLSpanElement;
+    const toastIcon       = document.getElementById('toast-icon')       as HTMLSpanElement;
+    const ctaBtn          = document.querySelector('.cta-scroll')       as HTMLButtonElement;
     const btnOriginalHtml = analyzeBtn.innerHTML;
 
     // ── Temporizador del toast (para cancelar si se vuelve a mostrar) ─
@@ -462,8 +475,10 @@ const features = [
       }
 
       // ── Loading state ─────────────────────────────────────
-      analyzeBtn.disabled = true;
-      analyzeBtn.innerHTML = 'Analyzing\u2026';
+      formContainer.classList.add('hidden');
+      loadingContainer.classList.remove('hidden');
+      loadingContainer.classList.add('flex');
+      loadingText.textContent = `Analyzing ${url}\u2026`;
       showToast(`Analyzing ${url}\u2026`, 'success');
 
       try {
@@ -483,14 +498,14 @@ const features = [
         window.location.href = `${basePath}/analyze?url=${encodeURIComponent(url)}`;
       } catch (error) {
         const msg = error instanceof Error ? error.message : '';
+        formContainer.classList.remove('hidden');
+        loadingContainer.classList.add('hidden');
+        loadingContainer.classList.remove('flex');
         if (/timeout/i.test(msg)) {
           (window as any).showErrorModal?.();
         } else {
           showToast(`❌ Error: ${msg || 'Unknown error'}`, 'error');
         }
-      } finally {
-        analyzeBtn.disabled = false;
-        analyzeBtn.innerHTML = btnOriginalHtml;
       }
     }
 
