@@ -54,7 +54,9 @@ export async function extractContent(url: string): Promise<ExtractedData> {
   const page = await context.newPage();
 
   try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 }).catch(() =>
+      page.goto(url, { waitUntil: 'load', timeout: 10000 })
+    );
     await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
 
     const statusCode = page.url() ? 200 : 0;
